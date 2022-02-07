@@ -36,6 +36,8 @@ function displayBooks() {
     li.appendChild(bookTitle);
     li.appendChild(deletebtn);
     ul.appendChild(li);
+    const line = document.createElement('hr');
+    li.appendChild(line);
   });
   // eslint-disable-next-line no-use-before-define
   assignRemoveBtn();
