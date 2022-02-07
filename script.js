@@ -1,15 +1,15 @@
-
 const inputTitle = document.querySelector('title');
 const inputAuthor = document.querySelector('author');
 const btnAdd = document.querySelector('btn-add');
 const bookList = document.querySelector('list');
+const ul = document.querySelector('ul');
 
-let bookCollection = JSON.parse(localStorage.getItem(bookAuthor)) || [];
+const bookCollection = JSON.parse(localStorage.getItem('book_author')) || [];
 
-function awesomeBooks(title, author, id) {
-this.title = title;
-this.author = author;
-this.id = id;
+function AwesomeBooks(title, author, id) {
+  this.title = title;
+  this.author = author;
+  this.id = id;
 }
 
 function displayBooks() {
@@ -39,13 +39,14 @@ bookCollection.forEach((book) => {
   ul.appendChild(li);
 });
 
-
 displayBooks();
 
-btnAdd.addEventListener('click', () => {
-  const inputs = new awesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1 );
+window.onload = function () {
+  btnAdd.addEventListener('click', () => {
+  const inputs = new AwesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1);
   bookCollection.push(inputs);
 
-  localStorage.setItem('bookAuthor', JSON.stringify(bookCollection));
+  localStorage.setItem('book_author', JSON.stringify(bookCollection));
   displayBooks();
 });
+};
