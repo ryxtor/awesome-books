@@ -1,6 +1,6 @@
 const inputTitle = document.querySelector('title');
 const inputAuthor = document.querySelector('author');
-const btnAdd = document.querySelector('btn-add');
+const btnAdd = document.getElementById('btn-add-id');
 const bookList = document.querySelector('list');
 const ul = document.querySelector('ul');
 
@@ -18,30 +18,30 @@ function displayBooks() {
       ul.removeChild(bookContainer);
     });
   }
-}
 
-bookCollection.forEach((book) => {
-  const li = document.createElement('li');
-  li.className = 'book';
-  const bookAuthor = document.createElement('p');
-  bookAuthor.className = 'book-author';
-  const bookTitle = document.createElement('p');
-  bookTitle.className = 'book-title';
-  const deletebtn = document.createElement('button');
-  deletebtn.id = book.id;
-  deletebtn.className = 'remove-btn';
-  deletebtn.textContent = 'Remove';
-  bookAuthor.textContent = book.author;
-  bookTitle.textContent = book.title;
-  li.appendChild(bookAuthor);
-  li.appendChild(bookTitle);
-  li.appendChild(deletebtn);
-  ul.appendChild(li);
-});
+  bookCollection.forEach((book) => {
+    const li = document.createElement('li');
+    li.className = 'book';
+    const bookAuthor = document.createElement('p');
+    bookAuthor.className = 'book-author';
+    const bookTitle = document.createElement('p');
+    bookTitle.className = 'book-title';
+    const deletebtn = document.createElement('button');
+    deletebtn.id = book.id;
+    deletebtn.className = 'remove-btn';
+    deletebtn.textContent = 'Remove';
+    bookAuthor.textContent = book.author;
+    bookTitle.textContent = book.title;
+    li.appendChild(bookAuthor);
+    li.appendChild(bookTitle);
+    li.appendChild(deletebtn);
+    ul.appendChild(li);
+  });
+  
+}
 
 displayBooks();
 
-window.onload = function () {
   btnAdd.addEventListener('click', () => {
   const inputs = new AwesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1);
   bookCollection.push(inputs);
@@ -49,4 +49,3 @@ window.onload = function () {
   localStorage.setItem('book_author', JSON.stringify(bookCollection));
   displayBooks();
 });
-};
