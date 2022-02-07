@@ -1,4 +1,3 @@
-const books = {};
 
 const inputTitle = document.querySelector('title');
 const inputAuthor = document.querySelector('author');
@@ -40,4 +39,13 @@ bookCollection.forEach((book) => {
   ul.appendChild(li);
 });
 
+
 displayBooks();
+
+btnAdd.addEventListener('click', () => {
+  const inputs = new awesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1 );
+  bookCollection.push(inputs);
+
+  localStorage.setItem('bookAuthor', JSON.stringify(bookCollection));
+  displayBooks();
+});
