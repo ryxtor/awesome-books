@@ -17,20 +17,14 @@ function displayBooks() {
     li.className = 'book';
     const bookAuthor = document.createElement('p');
     bookAuthor.className = 'book-author';
-    const bookTitle = document.createElement('p');
-    bookTitle.className = 'book-title';
     const deletebtn = document.createElement('button');
     deletebtn.id = book.id;
     deletebtn.className = 'remove-btn';
     deletebtn.textContent = 'Remove';
-    bookAuthor.textContent = book.author;
-    bookTitle.textContent = book.title;
-    li.appendChild(bookTitle);
+    bookAuthor.textContent = '"' + book.author + '"' + ' by ' + book.title; 
     li.appendChild(bookAuthor);
     li.appendChild(deletebtn);
     ul.appendChild(li);
-    const line = document.createElement('hr');
-    li.appendChild(line);
   });
 }
 

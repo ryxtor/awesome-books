@@ -1,3 +1,48 @@
-** {
+body {
+  text-align: center;
   align-items: center;
+  font-family: sans-serif, Arial;
+}
+
+ul {
+  margin: 0 10%;
+}
+
+li {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list {
+  border: 2px solid black;
+  padding-left: 0;
+}
+
+.list li:nth-child(even) {
+  background-color: #cfcfcf;
+}
+
+.remove-btn {
+  background-color: #fff;
+  margin-right: 20px;
+}
+
+.title,
+.author {
+  margin-bottom: 10px;
+}
+
+form {
+  margin: 0 43.8%;
+}
+
+.btn-add {
+  background-color: #fff;
+  display: flex;
+  float: right;
+}
+
+.book-author {
+  margin-left: 20px;
 }
