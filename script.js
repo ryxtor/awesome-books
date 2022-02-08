@@ -1,7 +1,6 @@
 const inputTitle = document.getElementById('title');
 const inputAuthor = document.getElementById('author');
 const btnAdd = document.getElementById('btn-add-id');
-// const bookList = document.querySelector('list');
 const ul = document.querySelector('ul');
 
 let bookCollection = JSON.parse(localStorage.getItem('book_author')) || [];
@@ -32,18 +31,21 @@ function displayBooks() {
     deletebtn.textContent = 'Remove';
     bookAuthor.textContent = book.author;
     bookTitle.textContent = book.title;
-    li.appendChild(bookAuthor);
     li.appendChild(bookTitle);
+    li.appendChild(bookAuthor);
     li.appendChild(deletebtn);
     ul.appendChild(li);
     const line = document.createElement('hr');
     li.appendChild(line);
   });
-  // eslint-disable-next-line no-use-before-define
-  assignRemoveBtn();
 }
 
-displayBooks();
+function refresh() {
+  setTimeout(() => {
+    window.location.reload();
+  },
+  100);
+}
 
 function assignRemoveBtn() {
   if (bookCollection.length) {
@@ -55,22 +57,28 @@ function assignRemoveBtn() {
         bookCollection.forEach((book) => {
           if (parseInt(btn.id, 10) !== book.id) {
             array.push(book);
-          }
+          } else { refresh(); }
         });
 
         bookCollection = array;
-        localStorage.setItem('book-author', JSON.stringify(bookCollection));
+        localStorage.setItem('book_author', JSON.stringify(bookCollection));
         displayBooks();
       });
     });
   }
 }
 
-btnAdd.addEventListener('click', () => {
+displayBooks();
+assignRemoveBtn();
+
+const addBook = () => {
   const inputs = new AwesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1);
   bookCollection.push(inputs);
-  // console.log(bookCollection);
+};
 
+btnAdd.addEventListener('click', () => {
+  addBook();
   localStorage.setItem('book_author', JSON.stringify(bookCollection));
   displayBooks();
+  assignRemoveBtn();
 });
