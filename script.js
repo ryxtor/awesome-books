@@ -5,12 +5,6 @@ const ul = document.querySelector('ul');
 
 let bookCollection = JSON.parse(localStorage.getItem('book_author')) || [];
 
-function AwesomeBooks(title, author, id) {
-  this.title = title;
-  this.author = author;
-  this.id = id;
-}
-
 function displayBooks() {
   if (ul.querySelectorAll('li')) {
     Array.from(ul.querySelectorAll('li')).forEach((bookContainer) => {
@@ -47,8 +41,19 @@ function refresh() {
   100);
 }
 
-function assignRemoveBtn() {
-  if (bookCollection.length) {
+class AwesomeBooks {
+  constructor(title, author, id) {
+    this.title = title;
+    this.author = author;
+    this.id = id;
+  }
+
+  addBooks() {
+    bookCollection.push(new AwesomeBooks(this.title = inputTitle.value,
+      this.author = inputAuthor.value, this.id = bookCollection.length + 1));
+  }
+
+  removeBook() {
     const removeBtns = Array.from(document.querySelectorAll('.remove-btn'));
 
     removeBtns.forEach((btn) => {
@@ -68,16 +73,19 @@ function assignRemoveBtn() {
   }
 }
 
+function assignRemoveBtn() {
+  if (bookCollection.length) {
+    const remove = new AwesomeBooks();
+    remove.removeBook();
+  }
+}
+
 displayBooks();
 assignRemoveBtn();
 
-const addBook = () => {
-  const inputs = new AwesomeBooks(inputTitle.value, inputAuthor.value, bookCollection.length + 1);
-  bookCollection.push(inputs);
-};
-
 btnAdd.addEventListener('click', () => {
-  addBook();
+  const add = new AwesomeBooks();
+  add.addBooks();
   localStorage.setItem('book_author', JSON.stringify(bookCollection));
   displayBooks();
   assignRemoveBtn();
