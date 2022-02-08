@@ -21,7 +21,7 @@ function displayBooks() {
     deletebtn.id = book.id;
     deletebtn.className = 'remove-btn';
     deletebtn.textContent = 'Remove';
-    bookAuthor.textContent = '"' + book.author + '"' + ' by ' + book.title; 
+    bookAuthor.textContent = `"${book.author}" by ${book.title}`;
     li.appendChild(bookAuthor);
     li.appendChild(deletebtn);
     ul.appendChild(li);
