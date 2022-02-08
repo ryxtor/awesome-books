@@ -55,17 +55,17 @@ class AwesomeBooks {
 
   removeBook() {
     const removeBtns = Array.from(document.querySelectorAll('.remove-btn'));
+    this.array = [];
 
     removeBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const array = [];
         bookCollection.forEach((book) => {
           if (parseInt(btn.id, 10) !== book.id) {
-            array.push(book);
+            this.array.push(book);
           } else { refresh(); }
         });
 
-        bookCollection = array;
+        bookCollection = this.array;
         localStorage.setItem('book_author', JSON.stringify(bookCollection));
         displayBooks();
       });
