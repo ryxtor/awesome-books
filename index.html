@@ -11,20 +11,19 @@
 <header class="header">
     <a href="#">Awesome Books</a>
     <nav class="nav">
-        <a class="list-nav">List</a>
-        <a class="add-nav">Add new</a>
-
-        <a class="contact=nav">Contact</a>
+        <a onclick="navSection('booklist')" class="list-nav">List</a>
+        <a onclick="navSection('addBook')" class="add-nav">Add new</a>
+        <a onclick="navSection('contact')" class="contact-nav">Contact</a>
     </nav>
 </header>
-<section class="books">
+<section class="books" id="books">
     <h1>Awesome Books</h1>
     <div class="store">
         <ul class="list">
         </ul>
     </div>  
 </section>
-<section class="add-books">
+<section class="add-books" id="add-books">
     <h2>Add a new book</h2>
     
     <form class="form">
@@ -32,11 +31,11 @@
         <br>
         <input type="text" id="author" class="author" placeholder="Author">
         <br>
-        <button type="button" id="btn-add-id" class="btn-add">Add</button>
+        <button type="submit" id="btn-add-id" class="btn-add">Add</button>
     </form>
 </section>
 
-<section class="contact">
+<section class="contact" id="contact">
 <h2>Contact information</h2>
 <p class="contact-p">Do have any questions or you just want to say "Hello"?<br>
 You can reach out to us!</p>
