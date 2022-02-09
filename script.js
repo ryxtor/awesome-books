@@ -3,31 +3,6 @@ const inputAuthor = document.getElementById('author');
 const btnAdd = document.getElementById('btn-add-id');
 const ul = document.querySelector('ul');
 
-let bookCollection = JSON.parse(localStorage.getItem('book_author')) || [];
-
-function displayBooks() {
-  if (ul.querySelectorAll('li')) {
-    Array.from(ul.querySelectorAll('li')).forEach((bookContainer) => {
-      ul.removeChild(bookContainer);
-    });
-  }
-
-  bookCollection.forEach((book) => {
-    const li = document.createElement('li');
-    li.className = 'book';
-    const bookAuthor = document.createElement('p');
-    bookAuthor.className = 'book-author';
-    const deletebtn = document.createElement('button');
-    deletebtn.id = book.id;
-    deletebtn.className = 'remove-btn';
-    deletebtn.textContent = 'Remove';
-    bookAuthor.textContent = `"${book.author}" by ${book.title}`;
-    li.appendChild(bookAuthor);
-    li.appendChild(deletebtn);
-    ul.appendChild(li);
-  });
-}
-
 function refresh() {
   setTimeout(() => {
     window.location.reload();
@@ -35,52 +10,75 @@ function refresh() {
   100);
 }
 
-class AwesomeBooks {
+class BookCollection {
   constructor(title, author, id) {
+    this.books = JSON.parse(localStorage.getItem('book_author')) || [];
     this.title = title;
     this.author = author;
     this.id = id;
   }
 
-  addBooks() {
-    bookCollection.push(new AwesomeBooks(this.title = inputTitle.value,
-      this.author = inputAuthor.value, this.id = bookCollection.length + 1));
-  }
-
-  removeBook() {
-    const removeBtns = Array.from(document.querySelectorAll('.remove-btn'));
-    this.array = [];
-
-    removeBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        bookCollection.forEach((book) => {
-          if (parseInt(btn.id, 10) !== book.id) {
-            this.array.push(book);
-          } else { refresh(); }
-        });
-
-        bookCollection = this.array;
-        localStorage.setItem('book_author', JSON.stringify(bookCollection));
-        displayBooks();
+  displayBooks() {
+    if (ul.querySelectorAll('li')) {
+      Array.from(ul.querySelectorAll('li')).forEach((bookContainer) => {
+        ul.removeChild(bookContainer);
       });
+    }
+
+    this.books.forEach((book) => {
+      const li = document.createElement('li');
+      li.className = 'book';
+      const bookAuthor = document.createElement('p');
+      bookAuthor.className = 'book-author';
+      const deletebtn = document.createElement('button');
+      deletebtn.id = book.id;
+      deletebtn.className = 'remove-btn';
+      deletebtn.textContent = 'Remove';
+      bookAuthor.textContent = `"${book.title}" by ${book.author}`;
+      li.appendChild(bookAuthor);
+      li.appendChild(deletebtn);
+      ul.appendChild(li);
     });
   }
-}
 
-function assignRemoveBtn() {
-  if (bookCollection.length) {
-    const remove = new AwesomeBooks();
-    remove.removeBook();
+  assignRemoveBtn() {
+    if (this.books.length) {
+      const removeBtns = Array.from(document.querySelectorAll('.remove-btn'));
+      this.array = [];
+
+      removeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          this.books.forEach((book) => {
+            if (parseInt(btn.id, 10) !== book.id) {
+              this.array.push(book);
+            } else { refresh(); }
+          });
+
+          this.books = this.array;
+          localStorage.setItem('book_author', JSON.stringify(this.books));
+          this.displayBooks();
+        });
+      });
+    }
+  }
+
+  addBooks() {
+    this.books.push(new BookCollection(this.title = inputTitle.value,
+      this.author = inputAuthor.value, this.id = this.books.length + 1));
+  }
+
+  setbooks() {
+    localStorage.setItem('book_author', JSON.stringify(this.books));
   }
 }
 
-displayBooks();
-assignRemoveBtn();
+const runClass = new BookCollection();
+runClass.displayBooks();
+runClass.assignRemoveBtn();
 
 btnAdd.addEventListener('click', () => {
-  const add = new AwesomeBooks();
-  add.addBooks();
-  localStorage.setItem('book_author', JSON.stringify(bookCollection));
-  displayBooks();
-  assignRemoveBtn();
+  runClass.addBooks();
+  runClass.setbooks();
+  runClass.displayBooks();
+  runClass.assignRemoveBtn();
 });
